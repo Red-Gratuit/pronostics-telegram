@@ -7,6 +7,15 @@ tg.expand();
 let adminPassword = '';
 let isAdminLoggedIn = false;
 
+// Rendre les fonctions globales pour onclick
+window.showPage = showPage;
+window.showAdminPage = showAdminPage;
+window.closeAdminModal = closeAdminModal;
+window.verifyAdminPassword = verifyAdminPassword;
+window.logoutAdmin = logoutAdmin;
+window.addMatch = addMatch;
+window.deleteMatch = deleteMatch;
+
 // Navigation entre pages
 function showPage(pageName) {
     document.querySelectorAll('.page').forEach(page => {
@@ -19,7 +28,7 @@ function showPage(pageName) {
 
     document.getElementById('page-' + pageName).classList.add('active');
 
-    // Trouver et activer le bon onglet
+    // Activer le bon onglet
     const tabs = document.querySelectorAll('.nav-tab');
     tabs.forEach(tab => {
         if (tab.textContent.includes('Matchs') && pageName === 'matches') tab.classList.add('active');
@@ -28,7 +37,9 @@ function showPage(pageName) {
         if (tab.textContent.includes('Admin') && pageName === 'admin') tab.classList.add('active');
     });
 
-    tg.HapticFeedback.impactOccurred('light');
+    if (typeof tg.HapticFeedback !== 'undefined') {
+        tg.HapticFeedback.impactOccurred('light');
+    }
 }
 
 // Afficher la modal admin
@@ -74,11 +85,15 @@ async function verifyAdminPassword() {
             closeAdminModal();
             showPage('admin');
             loadAdminMatches();
-            tg.HapticFeedback.notificationOccurred('success');
+            if (typeof tg.HapticFeedback !== 'undefined') {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
         } else {
             errorDiv.textContent = '❌ Mot de passe incorrect';
             errorDiv.style.display = 'block';
-            tg.HapticFeedback.notificationOccurred('error');
+            if (typeof tg.HapticFeedback !== 'undefined') {
+                tg.HapticFeedback.notificationOccurred('error');
+            }
         }
     } catch (error) {
         errorDiv.textContent = 'Erreur de connexion au serveur';
@@ -91,7 +106,7 @@ function logoutAdmin() {
     isAdminLoggedIn = false;
     adminPassword = '';
     showPage('matches');
-    tg.showAlert('Déconnecté avec succès');
+    alert('Déconnecté avec succès');
 }
 
 // Charger les matchs (PUBLIC)
@@ -154,7 +169,7 @@ async function addMatch() {
     const odds = document.getElementById('admin-odds').value.trim();
 
     if (!league || !homeTeam || !awayTeam || !time || !prediction) {
-        tg.showAlert('⚠️ Veuillez remplir tous les champs obligatoires');
+        alert('⚠️ Veuillez remplir tous les champs obligatoires');
         return;
     }
 
@@ -180,19 +195,18 @@ async function addMatch() {
             document.getElementById('admin-prediction').value = '';
             document.getElementById('admin-odds').value = '';
 
-            loadMatches();
-            loadAdminMatches();
+            await loadMatches();
+            await loadAdminMatches();
 
-            tg.HapticFeedback.notificationOccurred('success');
-            tg.showPopup({
-                message: '✅ Match publié avec succès !',
-                buttons: [{type: 'ok'}]
-            });
+            if (typeof tg.HapticFeedback !== 'undefined') {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
+            alert('✅ Match publié avec succès !');
         } else {
-            tg.showAlert('❌ Erreur lors de l\'ajout du match');
+            alert('❌ Erreur lors de l\'ajout du match');
         }
     } catch (error) {
-        tg.showAlert('❌ Erreur de connexion au serveur');
+        alert('❌ Erreur de connexion au serveur');
     }
 }
 
@@ -211,8 +225,16 @@ async function loadAdminMatches() {
                 const item = document.createElement('div');
                 item.className = 'admin-match-item';
 
-                item.innerHTML = `
-                    <button class="delete-btn" onclick="deleteMatch(${match.id})">🗑️ Supprimer</button>
+                // Créer le bouton supprimer avec addEventListener
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = '🗑️ Supprimer';
+                deleteBtn.addEventListener('click', function() {
+                    deleteMatch(match.id);
+                });
+
+                const content = document.createElement('div');
+                content.innerHTML = `
                     <h4>${match.league}</h4>
                     <p><strong>${match.homeTeam} vs ${match.awayTeam}</strong></p>
                     <p>🕐 ${match.time}</p>
@@ -220,6 +242,8 @@ async function loadAdminMatches() {
                     ${match.odds ? `<p>💰 Cote: ${match.odds}</p>` : ''}
                 `;
 
+                item.appendChild(deleteBtn);
+                item.appendChild(content);
                 adminList.appendChild(item);
             });
         } else {
@@ -230,25 +254,16 @@ async function loadAdminMatches() {
     }
 }
 
-// Supprimer un match (ADMIN) - VERSION CORRIGÉE
+// Supprimer un match (ADMIN) - VERSION ULTRA SIMPLIFIÉE
 async function deleteMatch(matchId) {
-    // Vérifier si on est dans Telegram
-    if (typeof tg.showConfirm === 'function') {
-        tg.showConfirm('Êtes-vous sûr de vouloir supprimer ce match ?', async (confirmed) => {
-            if (confirmed) {
-                await performDelete(matchId);
-            }
-        });
-    } else {
-        // Fallback pour navigateur normal
-        if (confirm('Êtes-vous sûr de vouloir supprimer ce match ?')) {
-            await performDelete(matchId);
-        }
-    }
-}
+    console.log('Suppression du match ID:', matchId);
 
-// Fonction pour effectuer la suppression
-async function performDelete(matchId) {
+    const confirmed = confirm('Êtes-vous sûr de vouloir supprimer ce match ?');
+
+    if (!confirmed) {
+        return;
+    }
+
     try {
         const response = await fetch(`/api/admin/matches/${matchId}`, {
             method: 'DELETE',
@@ -258,36 +273,22 @@ async function performDelete(matchId) {
 
         const data = await response.json();
 
+        console.log('Réponse suppression:', data);
+
         if (data.success) {
+            alert('✅ Match supprimé avec succès !');
             await loadMatches();
             await loadAdminMatches();
 
             if (typeof tg.HapticFeedback !== 'undefined') {
                 tg.HapticFeedback.notificationOccurred('success');
             }
-
-            if (typeof tg.showPopup === 'function') {
-                tg.showPopup({
-                    message: '✅ Match supprimé !',
-                    buttons: [{type: 'ok'}]
-                });
-            } else {
-                alert('✅ Match supprimé !');
-            }
         } else {
-            if (typeof tg.showAlert === 'function') {
-                tg.showAlert('❌ Erreur lors de la suppression');
-            } else {
-                alert('❌ Erreur lors de la suppression');
-            }
+            alert('❌ Erreur: ' + (data.message || 'Suppression impossible'));
         }
     } catch (error) {
-        console.error('Erreur:', error);
-        if (typeof tg.showAlert === 'function') {
-            tg.showAlert('❌ Erreur de connexion');
-        } else {
-            alert('❌ Erreur de connexion');
-        }
+        console.error('Erreur suppression:', error);
+        alert('❌ Erreur de connexion au serveur');
     }
 }
 
@@ -295,7 +296,7 @@ async function performDelete(matchId) {
 document.addEventListener('DOMContentLoaded', () => {
     loadMatches();
 
-    // Gérer la touche Entrée dans le champ mot de passe
+    // Support touche Entrée pour le mot de passe
     const passwordInput = document.getElementById('admin-password-input');
     if (passwordInput) {
         passwordInput.addEventListener('keypress', (e) => {
