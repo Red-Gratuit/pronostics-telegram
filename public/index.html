@@ -11,6 +11,11 @@
     <!-- Particules décoratives -->
     <div class="particles" id="particles"></div>
 
+    <!-- Lecteur Audio (Fichier local song.mp3) -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Navigation -->
     <div class="nav-tabs">
         <button class="nav-tab active" onclick="showPage('matches')">🎯 Matchs</button>
@@ -19,11 +24,20 @@
         <button class="nav-tab admin-tab" onclick="showAdminPage()">⚙️ Admin</button>
     </div>
 
+    <!-- Bouton Mute Flottant -->
+    <button id="mute-btn" class="mute-btn" onclick="toggleMusic()">
+        🔊 ON
+    </button>
+
     <!-- Page Matchs -->
     <div id="page-matches" class="page active">
         <div class="container">
             <header>
-                <h1>⚽ PRONOSTICS VIP</h1>
+                <!-- Logo local logo.png -->
+                <div class="logo-container">
+                    <img src="logo.png" onerror="this.src='logo.jpg'" alt="Logo Popeye" class="main-logo">
+                </div>
+                <h1>PRONOSTICS VIP</h1>
                 <p class="subtitle">💎 Sélection Premium du Jour</p>
             </header>
 
@@ -47,43 +61,38 @@
         <div class="container">
             <div class="info-card">
                 <h2>ℹ️ À Propos</h2>
-                <p>Bienvenue sur notre <strong>service de pronostics football VIP premium</strong>.</p>
-                <p>Nous analysons et sélectionnons les meilleurs matchs avec les opportunités les plus prometteuses pour maximiser vos gains.</p>
-
-                <div class="info-section">
-                    <h3>🎯 Notre Méthode</h3>
-                    <ul>
-                        <li>Analyse statistique approfondie des équipes</li>
-                        <li>Étude détaillée des formes et confrontations</li>
-                        <li>Sélection rigoureuse basée sur les données</li>
-                        <li>Pronostics validés par nos experts</li>
-                        <li>Suivi en temps réel des performances</li>
-                    </ul>
+                <div class="logo-small-container">
+                    <img src="logo.png" onerror="this.src='logo.jpg'" alt="Logo Small" class="logo-small">
                 </div>
+                <p>Bienvenue sur notre service VIP premium. Nous analysons les meilleurs matchs pour maximiser vos gains.</p>
 
-                <div class="info-section">
-                    <h3>⚡ Pourquoi Nous Choisir ?</h3>
-                    <ul>
-                        <li>Expertise reconnue dans le domaine</li>
-                        <li>Transparence totale sur nos résultats</li>
-                        <li>Support client réactif et disponible</li>
-                        <li>Mises à jour quotidiennes garanties</li>
-                        <li>Communauté active et engagée</li>
-                    </ul>
-                </div>
+                <!-- Section Avis Clients -->
+                <div class="reviews-section">
+                    <h3>⭐ Avis de nos membres</h3>
 
-                <div class="info-section">
-                    <h3>📊 Nos Statistiques</h3>
-                    <ul>
-                        <li>Taux de réussite élevé et vérifié</li>
-                        <li>Analyses sur +10 championnats</li>
-                        <li>Des milliers de membres satisfaits</li>
-                        <li>Historique complet accessible</li>
-                    </ul>
-                </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-name">Thomas D.</span>
+                            <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="review-text">"Incroyable ! J'ai doublé ma mise en une semaine. Les analyses sont super précises."</p>
+                    </div>
 
-                <div class="warning-box">
-                    <p>⚠️ <strong>Avertissement Important:</strong> Les paris sportifs comportent des risques financiers. Pariez de manière responsable et uniquement avec des fonds que vous pouvez vous permettre de perdre. Ce service est réservé aux personnes majeures.</p>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-name">Karim93</span>
+                            <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="review-text">"Le meilleur canal Telegram que j'ai rejoint. Le support répond vite et les pronos sont validés."</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-name">Sarah L.</span>
+                            <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="review-text">"Merci pour le VIP ! Enfin un service sérieux sans arnaque. Je recommande à 100%."</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,68 +103,35 @@
         <div class="container">
             <div class="contact-card">
                 <h2>📧 Nous Contacter</h2>
-                <p class="contact-intro">Une question ? Besoin d'assistance ? Notre équipe est à votre écoute !</p>
 
                 <div class="contact-info">
+                    <a href="https://www.snapchat.com/add/i.dsbb" target="_blank" class="contact-item snapchat-item">
+                        <span class="contact-icon">👻</span>
+                        <div>
+                            <h3>Snapchat</h3>
+                            <p class="contact-value">i.dsbb</p>
+                            <span class="contact-label">Cliquez pour ajouter !</span>
+                        </div>
+                        <span class="arrow-icon">➔</span>
+                    </a>
+
                     <div class="contact-item">
                         <span class="contact-icon">💬</span>
                         <div>
-                            <h3>Telegram Direct</h3>
+                            <h3>Telegram</h3>
                             <p class="contact-value">@VotreUsername</p>
-                            <span class="contact-label">Réponse rapide garantie</span>
                         </div>
                     </div>
-
-                    <div class="contact-item">
-                        <span class="contact-icon">👥</span>
-                        <div>
-                            <h3>Groupe VIP</h3>
-                            <p class="contact-value">Accès Exclusif Membres</p>
-                            <span class="contact-label">Contactez-nous pour rejoindre</span>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <span class="contact-icon">📱</span>
-                        <div>
-                            <h3>Support Client</h3>
-                            <p class="contact-value">Disponible 7j/7</p>
-                            <span class="contact-label">Temps de réponse moyen : 2h</span>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <span class="contact-icon">📨</span>
-                        <div>
-                            <h3>Email Professionnel</h3>
-                            <p class="contact-value">contact@votre-site.com</p>
-                            <span class="contact-label">Pour demandes officielles uniquement</span>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <span class="contact-icon">🌐</span>
-                        <div>
-                            <h3>Réseaux Sociaux</h3>
-                            <p class="contact-value">Instagram • Twitter • YouTube</p>
-                            <span class="contact-label">Suivez-nous pour les actualités</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-note">
-                    <p><strong>💡 Personnalisation:</strong> Modifiez ces informations dans le fichier <code>index.html</code> (section Contact) pour ajouter vos vrais contacts et réseaux sociaux.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Admin Login -->
+    <!-- Modal Admin & Page Admin (identiques) -->
     <div id="admin-modal" class="modal">
         <div class="modal-content">
             <h2>🔒 Accès Admin</h2>
-            <p>Authentification requise</p>
-            <input type="password" id="admin-password-input" placeholder="Mot de passe administrateur" class="admin-input">
+            <input type="password" id="admin-password-input" placeholder="Mot de passe" class="admin-input">
             <div class="modal-buttons">
                 <button onclick="verifyAdminPassword()" class="admin-btn">🔓 Connexion</button>
                 <button onclick="closeAdminModal()" class="cancel-btn">Annuler</button>
@@ -164,29 +140,23 @@
         </div>
     </div>
 
-    <!-- Page Admin -->
     <div id="page-admin" class="page">
         <div class="container">
             <div class="admin-panel">
                 <div class="admin-header">
                     <h2>⚙️ Panneau Admin</h2>
-                    <button onclick="logoutAdmin()" class="logout-btn">🚪 Déconnexion</button>
+                    <button onclick="logoutAdmin()" class="logout-btn">Déconnexion</button>
                 </div>
-                <p class="admin-subtitle">Gérez vos pronostics en temps réel</p>
-
                 <div class="admin-form">
-                    <h3>➕ Publier un Nouveau Match</h3>
-
-                    <input type="text" id="admin-league" placeholder="🏆 Ligue (ex: Ligue 1, Premier League)" class="admin-input">
-                    <input type="text" id="admin-home" placeholder="🏠 Équipe domicile" class="admin-input">
-                    <input type="text" id="admin-away" placeholder="✈️ Équipe extérieure" class="admin-input">
+                    <h3>➕ Publier un match</h3>
+                    <input type="text" id="admin-league" placeholder="🏆 Ligue" class="admin-input">
+                    <input type="text" id="admin-home" placeholder="🏠 Domicile" class="admin-input">
+                    <input type="text" id="admin-away" placeholder="✈️ Extérieur" class="admin-input">
                     <input type="time" id="admin-time" class="admin-input">
-                    <input type="text" id="admin-prediction" placeholder="⭐ Votre pronostic (ex: Victoire PSG, Match Nul)" class="admin-input">
-                    <input type="text" id="admin-odds" placeholder="💰 Cote (ex: 2.50)" class="admin-input">
-
-                    <button onclick="addMatch()" class="admin-btn">✅ Publier Le Match</button>
+                    <input type="text" id="admin-prediction" placeholder="⭐ Pronostic" class="admin-input">
+                    <input type="text" id="admin-odds" placeholder="💰 Cote" class="admin-input">
+                    <button onclick="addMatch()" class="admin-btn">✅ Publier</button>
                 </div>
-
                 <div class="admin-list">
                     <h3>📋 Matchs Publiés</h3>
                     <div id="admin-matches-list"></div>
@@ -197,7 +167,37 @@
 
     <script src="app.js"></script>
     <script>
-        // Générer des particules décoratives
+        // Gestion de la musique
+        const audio = document.getElementById('bg-music');
+        const muteBtn = document.getElementById('mute-btn');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                muteBtn.innerHTML = '🔇 OFF';
+                muteBtn.classList.add('muted');
+                isPlaying = false;
+            } else {
+                audio.play().catch(e => console.log("Lecture bloquée"));
+                muteBtn.innerHTML = '🔊 ON';
+                muteBtn.classList.remove('muted');
+                isPlaying = true;
+            }
+        }
+
+        // DÉMARRAGE AUTO AU PREMIER CLIC (n'importe où sur l'écran)
+        document.body.addEventListener('click', function() {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    muteBtn.innerHTML = '🔊 ON';
+                    muteBtn.classList.remove('muted');
+                }).catch(e => console.log("Erreur lecture:", e));
+            }
+        }, { once: true }); // Ne s'exécute qu'une seule fois
+
+        // Particules
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 30; i++) {
             const particle = document.createElement('div');
