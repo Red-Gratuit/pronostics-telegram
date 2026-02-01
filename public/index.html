@@ -3,137 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pronostics Foot VIP</title>
+    <title>🏆 Pronostics VIP Premium</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Particules décoratives -->
+    <!-- Fond animé premium -->
+    <div class="animated-bg"></div>
     <div class="particles" id="particles"></div>
 
-    <!-- Lecteur Audio (Fichier local song.mp3) -->
+    <!-- Grille de points lumineux -->
+    <div class="grid-overlay"></div>
+
+    <!-- Audio -->
     <audio id="bg-music" loop>
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Navigation -->
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="showPage('matches')">🎯 Matchs</button>
-        <button class="nav-tab" onclick="showPage('info')">ℹ️ Info</button>
-        <button class="nav-tab" onclick="showPage('contact')">📧 Contact</button>
-        <button class="nav-tab admin-tab" onclick="showAdminPage()">⚙️ Admin</button>
+    <!-- Header Global Ultra Premium -->
+    <div class="global-header">
+        <div class="header-content">
+            <img src="logo.png" onerror="this.src='logo.jpg'" alt="Logo" class="header-logo">
+            <div class="header-info">
+                <h2 class="header-title">PRONOSTICS VIP</h2>
+                <div class="header-badge">🔥 Premium</div>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-mini">
+                <span class="stat-mini-icon">✅</span>
+                <span class="stat-mini-value">87%</span>
+            </div>
+            <div class="stat-mini">
+                <span class="stat-mini-icon">🎯</span>
+                <span class="stat-mini-value">250+</span>
+            </div>
+            <div class="stat-mini">
+                <span class="stat-mini-icon">🔥</span>
+                <span class="stat-mini-value">12</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Bouton Mute Flottant -->
+    <!-- Navigation Ultra Premium -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showPage('matches')">
+            <span class="nav-icon">🎯</span>
+            <span class="nav-text">Pronos</span>
+        </button>
+        <button class="nav-tab" onclick="showPage('stats')">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Stats</span>
+        </button>
+        <button class="nav-tab" onclick="showPage('info')">
+            <span class="nav-icon">⭐</span>
+            <span class="nav-text">Avis</span>
+        </button>
+        <button class="nav-tab" onclick="showPage('contact')">
+            <span class="nav-icon">💬</span>
+            <span class="nav-text">Contact</span>
+        </button>
+        <button class="nav-tab admin-tab" onclick="showAdminPage()">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">Admin</span>
+        </button>
+    </div>
+
+    <!-- Bouton Musique Flottant -->
     <button id="mute-btn" class="mute-btn" onclick="toggleMusic()">
-        🔊 ON
+        <span class="music-wave">🎵</span>
     </button>
 
     <!-- Page Matchs -->
     <div id="page-matches" class="page active">
         <div class="container">
-            <header>
-                <!-- Logo local logo.png -->
-                <div class="logo-container">
-                    <img src="logo.png" onerror="this.src='logo.jpg'" alt="Logo Popeye" class="main-logo">
+            <!-- VIP Banner Amélioré -->
+            <div class="vip-banner">
+                <div class="vip-glow"></div>
+                <div class="vip-content">
+                    <span class="vip-diamond">💎</span>
+                    <div class="vip-info">
+                        <span class="vip-status">STATUT VIP ACTIF</span>
+                        <span class="vip-subtitle">Accès Premium illimité</span>
+                    </div>
+                    <span class="vip-checkmark">✓</span>
                 </div>
-                <h1>PRONOSTICS VIP</h1>
-                <p class="subtitle">💎 Sélection Premium du Jour</p>
-            </header>
+            </div>
+
+            <!-- Section Titre avec compteur -->
+            <div class="section-header">
+                <h1 class="section-title">Pronos du Jour</h1>
+                <div class="match-counter" id="match-counter">
+                    <span class="counter-icon">⚽</span>
+                    <span class="counter-text">0 match</span>
+                </div>
+            </div>
 
             <div id="matches-list"></div>
 
             <div class="empty-state" id="empty-matches" style="display: none;">
-                <div class="empty-icon">🎯</div>
-                <p>Aucun match disponible</p>
-                <p class="empty-subtitle">De nouveaux pronostics arrivent bientôt</p>
+                <div class="empty-circle">
+                    <div class="empty-icon">🎯</div>
+                </div>
+                <h3 class="empty-title">Aucun match disponible</h3>
+                <p class="empty-text">De nouveaux pronostics VIP arrivent bientôt</p>
+                <div class="empty-dots">
+                    <span></span><span></span><span></span>
+                </div>
             </div>
 
             <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>Chargement des matchs...</p>
+                <div class="loading-ring">
+                    <div></div><div></div><div></div><div></div>
+                </div>
+                <p>Chargement...</p>
             </div>
         </div>
     </div>
 
-    <!-- Page Info -->
+    <!-- Page Stats Améliorée -->
+    <div id="page-stats" class="page">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Performance VIP</h1>
+                <p class="section-subtitle">Statistiques en temps réel</p>
+            </div>
+
+            <!-- Stats Cards avec graphiques -->
+            <div class="stats-grid">
+                <div class="stat-card-pro">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon success">🏆</span>
+                        <span class="stat-card-trend up">+12%</span>
+                    </div>
+                    <div class="stat-card-value">87%</div>
+                    <div class="stat-card-label">Taux de réussite</div>
+                    <div class="stat-card-bar">
+                        <div class="bar-fill success" style="width: 87%"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card-pro">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon primary">🎯</span>
+                        <span class="stat-card-trend up">+28</span>
+                    </div>
+                    <div class="stat-card-value">250+</div>
+                    <div class="stat-card-label">Pronos gagnants</div>
+                    <div class="stat-card-sparkline">
+                        <div class="sparkline-bar" style="height: 40%"></div>
+                        <div class="sparkline-bar" style="height: 60%"></div>
+                        <div class="sparkline-bar" style="height: 80%"></div>
+                        <div class="sparkline-bar" style="height: 100%"></div>
+                        <div class="sparkline-bar" style="height: 70%"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card-pro">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon gold">💰</span>
+                        <span class="stat-card-trend neutral">—</span>
+                    </div>
+                    <div class="stat-card-value">2.15</div>
+                    <div class="stat-card-label">Cote moyenne</div>
+                    <div class="stat-card-pill">Excellent</div>
+                </div>
+
+                <div class="stat-card-pro">
+                    <div class="stat-card-header">
+                        <span class="stat-card-icon fire">🔥</span>
+                        <span class="stat-card-trend hot">HOT</span>
+                    </div>
+                    <div class="stat-card-value">12</div>
+                    <div class="stat-card-label">Série en cours</div>
+                    <div class="stat-card-flame">🔥🔥🔥</div>
+                </div>
+            </div>
+
+            <!-- Graphique de performance mensuelle -->
+            <div class="chart-card">
+                <h3 class="chart-title">📈 Performance des 7 derniers jours</h3>
+                <div class="chart-container">
+                    <div class="chart-bar-group">
+                        <div class="chart-bar" style="height: 70%">
+                            <span class="chart-bar-label">Lun</span>
+                        </div>
+                        <div class="chart-bar" style="height: 85%">
+                            <span class="chart-bar-label">Mar</span>
+                        </div>
+                        <div class="chart-bar" style="height: 60%">
+                            <span class="chart-bar-label">Mer</span>
+                        </div>
+                        <div class="chart-bar" style="height: 90%">
+                            <span class="chart-bar-label">Jeu</span>
+                        </div>
+                        <div class="chart-bar" style="height: 100%">
+                            <span class="chart-bar-label">Ven</span>
+                        </div>
+                        <div class="chart-bar" style="height: 95%">
+                            <span class="chart-bar-label">Sam</span>
+                        </div>
+                        <div class="chart-bar" style="height: 88%">
+                            <span class="chart-bar-label">Dim</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Avis Ultra Premium -->
     <div id="page-info" class="page">
         <div class="container">
-            <div class="info-card">
-                <h2>ℹ️ À Propos</h2>
-                <div class="logo-small-container">
-                    <img src="logo.png" onerror="this.src='logo.jpg'" alt="Logo Small" class="logo-small">
+            <div class="section-header">
+                <h1 class="section-title">Ce qu'ils disent</h1>
+                <div class="rating-badge">
+                    <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                    <span class="rating-value">4.9/5</span>
                 </div>
-                <p>Bienvenue sur notre service VIP premium. Nous analysons les meilleurs matchs pour maximiser vos gains.</p>
+            </div>
 
-                <!-- Section Avis Clients -->
-                <div class="reviews-section">
-                    <h3>⭐ Avis de nos membres</h3>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <span class="review-name">Thomas D.</span>
-                            <span class="review-stars">⭐⭐⭐⭐⭐</span>
+            <div class="reviews-container">
+                <div class="review-pro">
+                    <div class="review-header">
+                        <div class="review-author-info">
+                            <div class="author-avatar gradient-1">T</div>
+                            <div>
+                                <div class="author-name">Thomas D.</div>
+                                <div class="author-meta">
+                                    <span class="meta-badge verified">✓ Vérifié</span>
+                                    <span class="meta-date">Il y a 2j</span>
+                                </div>
+                            </div>
                         </div>
-                        <p class="review-text">"Incroyable ! J'ai doublé ma mise en une semaine. Les analyses sont super précises."</p>
+                        <div class="review-rating">⭐⭐⭐⭐⭐</div>
                     </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <span class="review-name">Karim93</span>
-                            <span class="review-stars">⭐⭐⭐⭐⭐</span>
-                        </div>
-                        <p class="review-text">"Le meilleur canal Telegram que j'ai rejoint. Le support répond vite et les pronos sont validés."</p>
+                    <p class="review-text">"Depuis que je suis dans le VIP, je ne perds presque plus. Les analyses sont ultra précises et le support répond en 2 minutes chrono ! J'ai doublé ma bankroll 🔥"</p>
+                    <div class="review-stats">
+                        <span class="review-stat">💰 Gain: +850€</span>
+                        <span class="review-stat">📅 6 mois</span>
                     </div>
+                </div>
 
-                    <div class="review-card">
-                        <div class="review-header">
-                            <span class="review-name">Sarah L.</span>
-                            <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                <div class="review-pro">
+                    <div class="review-header">
+                        <div class="review-author-info">
+                            <div class="author-avatar gradient-2">K</div>
+                            <div>
+                                <div class="author-name">Karim93</div>
+                                <div class="author-meta">
+                                    <span class="meta-badge verified">✓ Vérifié</span>
+                                    <span class="meta-date">Il y a 5j</span>
+                                </div>
+                            </div>
                         </div>
-                        <p class="review-text">"Merci pour le VIP ! Enfin un service sérieux sans arnaque. Je recommande à 100%."</p>
+                        <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="review-text">"J'ai testé plusieurs groupes avant, c'est le seul vraiment sérieux. Pas d'arnaque, que du concret. J'ai triplé ma bankroll en 3 semaines, c'est dingue !"</p>
+                    <div class="review-stats">
+                        <span class="review-stat">💰 Gain: +1240€</span>
+                        <span class="review-stat">📅 3 mois</span>
+                    </div>
+                </div>
+
+                <div class="review-pro">
+                    <div class="review-header">
+                        <div class="review-author-info">
+                            <div class="author-avatar gradient-3">S</div>
+                            <div>
+                                <div class="author-name">Sarah L.</div>
+                                <div class="author-meta">
+                                    <span class="meta-badge verified">✓ Vérifié</span>
+                                    <span class="meta-date">Il y a 1 sem</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="review-text">"Meilleur investissement de l'année. Les cotes sont toujours bonnes et les matchs sont bien sélectionnés. Je recommande les yeux fermés 💯"</p>
+                    <div class="review-stats">
+                        <span class="review-stat">💰 Gain: +620€</span>
+                        <span class="review-stat">📅 4 mois</span>
+                    </div>
+                </div>
+
+                <div class="review-pro">
+                    <div class="review-header">
+                        <div class="review-author-info">
+                            <div class="author-avatar gradient-4">M</div>
+                            <div>
+                                <div class="author-name">Mehdi_75</div>
+                                <div class="author-meta">
+                                    <span class="meta-badge verified">✓ Vérifié</span>
+                                    <span class="meta-date">Il y a 3j</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <p class="review-text">"Premier mois et déjà +450€ de bénéf. C'est clean, transparent, et surtout ça marche. Merci l'équipe pour ce service de qualité !"</p>
+                    <div class="review-stats">
+                        <span class="review-stat">💰 Gain: +450€</span>
+                        <span class="review-stat">📅 1 mois</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Page Contact -->
+    <!-- Page Contact Premium -->
     <div id="page-contact" class="page">
         <div class="container">
-            <div class="contact-card">
-                <h2>📧 Nous Contacter</h2>
+            <div class="section-header">
+                <h1 class="section-title">Rejoins-nous</h1>
+                <p class="section-subtitle">Contact direct & réseaux sociaux</p>
+            </div>
 
-                <div class="contact-info">
-                    <a href="https://www.snapchat.com/add/i.dsbb" target="_blank" class="contact-item snapchat-item">
-                        <span class="contact-icon">👻</span>
-                        <div>
-                            <h3>Snapchat</h3>
-                            <p class="contact-value">i.dsbb</p>
-                            <span class="contact-label">Cliquez pour ajouter !</span>
-                        </div>
-                        <span class="arrow-icon">➔</span>
-                    </a>
-
-                    <div class="contact-item">
-                        <span class="contact-icon">💬</span>
-                        <div>
-                            <h3>Telegram</h3>
-                            <p class="contact-value">@VotreUsername</p>
-                        </div>
+            <div class="contact-grid">
+                <a href="https://www.snapchat.com/add/i.dsbb" target="_blank" class="contact-box snap">
+                    <div class="contact-box-header">
+                        <span class="contact-box-icon">👻</span>
+                        <span class="contact-box-badge active">ACTIF</span>
                     </div>
+                    <h3 class="contact-box-title">Snapchat</h3>
+                    <p class="contact-box-username">@i.dsbb</p>
+                    <div class="contact-box-footer">
+                        <span class="contact-box-cta">Ajouter maintenant</span>
+                        <span class="contact-box-arrow">→</span>
+                    </div>
+                </a>
+
+                <div class="contact-box telegram">
+                    <div class="contact-box-header">
+                        <span class="contact-box-icon">💬</span>
+                        <span class="contact-box-badge new">NOUVEAU</span>
+                    </div>
+                    <h3 class="contact-box-title">Telegram</h3>
+                    <p class="contact-box-username">@PronoVIP</p>
+                    <div class="contact-box-footer">
+                        <span class="contact-box-cta">Rejoindre</span>
+                        <span class="contact-box-arrow">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section supplémentaire -->
+            <div class="contact-info-card">
+                <div class="info-icon">💡</div>
+                <div class="info-content">
+                    <h3>Pourquoi nous rejoindre ?</h3>
+                    <ul class="info-list">
+                        <li>✓ Pronos quotidiens premium</li>
+                        <li>✓ Support 24/7 ultra-réactif</li>
+                        <li>✓ Analyses détaillées de matchs</li>
+                        <li>✓ Communauté VIP exclusive</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Admin & Page Admin (identiques) -->
+    <!-- Admin (Inchangé mais gardé) -->
     <div id="admin-modal" class="modal">
         <div class="modal-content">
             <h2>🔒 Accès Admin</h2>
             <input type="password" id="admin-password-input" placeholder="Mot de passe" class="admin-input">
             <div class="modal-buttons">
-                <button onclick="verifyAdminPassword()" class="admin-btn">🔓 Connexion</button>
+                <button onclick="verifyAdminPassword()" class="admin-btn">Connexion</button>
                 <button onclick="closeAdminModal()" class="cancel-btn">Annuler</button>
             </div>
             <div id="admin-error" class="error-message" style="display: none;"></div>
@@ -167,7 +403,6 @@
 
     <script src="app.js"></script>
     <script>
-        // Gestion de la musique
         const audio = document.getElementById('bg-music');
         const muteBtn = document.getElementById('mute-btn');
         let isPlaying = false;
@@ -175,37 +410,44 @@
         function toggleMusic() {
             if (isPlaying) {
                 audio.pause();
-                muteBtn.innerHTML = '🔇 OFF';
-                muteBtn.classList.add('muted');
+                muteBtn.classList.add('paused');
                 isPlaying = false;
             } else {
-                audio.play().catch(e => console.log("Lecture bloquée"));
-                muteBtn.innerHTML = '🔊 ON';
-                muteBtn.classList.remove('muted');
+                audio.play().catch(e => {});
+                muteBtn.classList.remove('paused');
                 isPlaying = true;
             }
         }
 
-        // DÉMARRAGE AUTO AU PREMIER CLIC (n'importe où sur l'écran)
         document.body.addEventListener('click', function() {
             if (!isPlaying) {
                 audio.play().then(() => {
                     isPlaying = true;
-                    muteBtn.innerHTML = '🔊 ON';
-                    muteBtn.classList.remove('muted');
-                }).catch(e => console.log("Erreur lecture:", e));
+                }).catch(e => {});
             }
-        }, { once: true }); // Ne s'exécute qu'une seule fois
+        }, { once: true });
 
-        // Particules
+        // Particules ultra
         const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 60; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particle.style.animationDelay = Math.random() * 25 + 's';
+            particle.style.animationDuration = (Math.random() * 20 + 15) + 's';
+            particle.style.width = particle.style.height = (Math.random() * 4 + 1) + 'px';
+            particle.style.opacity = Math.random() * 0.5 + 0.2;
             particlesContainer.appendChild(particle);
+        }
+
+        // Mettre à jour le compteur de matchs
+        function updateMatchCounter() {
+            const matchesList = document.getElementById('matches-list');
+            const counter = document.getElementById('match-counter');
+            const count = matchesList.children.length;
+            if (counter) {
+                counter.querySelector('.counter-text').textContent = count + ' match' + (count > 1 ? 's' : '');
+            }
         }
     </script>
 </body>

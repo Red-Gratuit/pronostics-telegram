@@ -7,7 +7,7 @@ tg.expand();
 let adminPassword = '';
 let isAdminLoggedIn = false;
 
-// Rendre les fonctions globales pour onclick
+// Rendre les fonctions globales
 window.showPage = showPage;
 window.showAdminPage = showAdminPage;
 window.closeAdminModal = closeAdminModal;
@@ -16,7 +16,7 @@ window.logoutAdmin = logoutAdmin;
 window.addMatch = addMatch;
 window.deleteMatch = deleteMatch;
 
-// Navigation entre pages
+// Navigation
 function showPage(pageName) {
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
@@ -28,11 +28,11 @@ function showPage(pageName) {
 
     document.getElementById('page-' + pageName).classList.add('active');
 
-    // Activer le bon onglet
     const tabs = document.querySelectorAll('.nav-tab');
     tabs.forEach(tab => {
-        if (tab.textContent.includes('Matchs') && pageName === 'matches') tab.classList.add('active');
-        if (tab.textContent.includes('Info') && pageName === 'info') tab.classList.add('active');
+        if (tab.textContent.includes('Pronos') && pageName === 'matches') tab.classList.add('active');
+        if (tab.textContent.includes('Stats') && pageName === 'stats') tab.classList.add('active');
+        if (tab.textContent.includes('Avis') && pageName === 'info') tab.classList.add('active');
         if (tab.textContent.includes('Contact') && pageName === 'contact') tab.classList.add('active');
         if (tab.textContent.includes('Admin') && pageName === 'admin') tab.classList.add('active');
     });
@@ -42,7 +42,6 @@ function showPage(pageName) {
     }
 }
 
-// Afficher la modal admin
 function showAdminPage() {
     if (isAdminLoggedIn) {
         showPage('admin');
@@ -54,12 +53,10 @@ function showAdminPage() {
     }
 }
 
-// Fermer la modal admin
 function closeAdminModal() {
     document.getElementById('admin-modal').classList.remove('active');
 }
 
-// Vérifier le mot de passe admin
 async function verifyAdminPassword() {
     const password = document.getElementById('admin-password-input').value;
     const errorDiv = document.getElementById('admin-error');
@@ -101,7 +98,6 @@ async function verifyAdminPassword() {
     }
 }
 
-// Déconnexion admin
 function logoutAdmin() {
     isAdminLoggedIn = false;
     adminPassword = '';
@@ -109,7 +105,6 @@ function logoutAdmin() {
     alert('Déconnecté avec succès');
 }
 
-// Charger les matchs (PUBLIC)
 async function loadMatches() {
     const loading = document.getElementById('loading');
     const matchesList = document.getElementById('matches-list');
@@ -149,6 +144,11 @@ async function loadMatches() {
 
                 matchesList.appendChild(card);
             });
+
+            // Mettre à jour le compteur
+            if (typeof updateMatchCounter === 'function') {
+                updateMatchCounter();
+            }
         } else {
             emptyState.style.display = 'block';
         }
@@ -159,7 +159,6 @@ async function loadMatches() {
     }
 }
 
-// Ajouter un match (ADMIN)
 async function addMatch() {
     const league = document.getElementById('admin-league').value.trim();
     const homeTeam = document.getElementById('admin-home').value.trim();
@@ -187,7 +186,6 @@ async function addMatch() {
         const data = await response.json();
 
         if (data.success) {
-            // Réinitialiser le formulaire
             document.getElementById('admin-league').value = '';
             document.getElementById('admin-home').value = '';
             document.getElementById('admin-away').value = '';
@@ -210,7 +208,6 @@ async function addMatch() {
     }
 }
 
-// Charger les matchs dans l'admin
 async function loadAdminMatches() {
     const adminList = document.getElementById('admin-matches-list');
 
@@ -225,7 +222,6 @@ async function loadAdminMatches() {
                 const item = document.createElement('div');
                 item.className = 'admin-match-item';
 
-                // Créer le bouton supprimer avec addEventListener
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = '🗑️ Supprimer';
@@ -254,7 +250,6 @@ async function loadAdminMatches() {
     }
 }
 
-// Supprimer un match (ADMIN) - VERSION ULTRA SIMPLIFIÉE
 async function deleteMatch(matchId) {
     console.log('Suppression du match ID:', matchId);
 
@@ -292,11 +287,10 @@ async function deleteMatch(matchId) {
     }
 }
 
-// Initialisation au chargement
+// Initialisation
 document.addEventListener('DOMContentLoaded', () => {
     loadMatches();
 
-    // Support touche Entrée pour le mot de passe
     const passwordInput = document.getElementById('admin-password-input');
     if (passwordInput) {
         passwordInput.addEventListener('keypress', (e) => {
