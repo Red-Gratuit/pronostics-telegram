@@ -18,7 +18,15 @@ function showPage(pageName) {
     });
 
     document.getElementById('page-' + pageName).classList.add('active');
-    event.target.classList.add('active');
+
+    // Trouver et activer le bon onglet
+    const tabs = document.querySelectorAll('.nav-tab');
+    tabs.forEach(tab => {
+        if (tab.textContent.includes('Matchs') && pageName === 'matches') tab.classList.add('active');
+        if (tab.textContent.includes('Info') && pageName === 'info') tab.classList.add('active');
+        if (tab.textContent.includes('Contact') && pageName === 'contact') tab.classList.add('active');
+        if (tab.textContent.includes('Admin') && pageName === 'admin') tab.classList.add('active');
+    });
 
     tg.HapticFeedback.impactOccurred('light');
 }
@@ -215,41 +223,85 @@ async function loadAdminMatches() {
                 adminList.appendChild(item);
             });
         } else {
-            adminList.innerHTML = '<p style="color: #999; text-align: center; padding: 32px;">Aucun match publié</p>';
+            adminList.innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center; padding: 32px;">Aucun match publié</p>';
         }
     } catch (error) {
-        adminList.innerHTML = '<p style="color: #d32f2f; text-align: center; padding: 32px;">Erreur de chargement</p>';
+        adminList.innerHTML = '<p style="color: #ff6b6b; text-align: center; padding: 32px;">Erreur de chargement</p>';
     }
 }
 
-// Supprimer un match (ADMIN)
+// Supprimer un match (ADMIN) - VERSION CORRIGÉE
 async function deleteMatch(matchId) {
-    tg.showConfirm('Êtes-vous sûr de vouloir supprimer ce match ?', async (confirmed) => {
-        if (confirmed) {
-            try {
-                const response = await fetch(`/api/admin/matches/${matchId}`, {
-                    method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password: adminPassword })
+    // Vérifier si on est dans Telegram
+    if (typeof tg.showConfirm === 'function') {
+        tg.showConfirm('Êtes-vous sûr de vouloir supprimer ce match ?', async (confirmed) => {
+            if (confirmed) {
+                await performDelete(matchId);
+            }
+        });
+    } else {
+        // Fallback pour navigateur normal
+        if (confirm('Êtes-vous sûr de vouloir supprimer ce match ?')) {
+            await performDelete(matchId);
+        }
+    }
+}
+
+// Fonction pour effectuer la suppression
+async function performDelete(matchId) {
+    try {
+        const response = await fetch(`/api/admin/matches/${matchId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: adminPassword })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            await loadMatches();
+            await loadAdminMatches();
+
+            if (typeof tg.HapticFeedback !== 'undefined') {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
+
+            if (typeof tg.showPopup === 'function') {
+                tg.showPopup({
+                    message: '✅ Match supprimé !',
+                    buttons: [{type: 'ok'}]
                 });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    loadMatches();
-                    loadAdminMatches();
-                    tg.HapticFeedback.notificationOccurred('success');
-                } else {
-                    tg.showAlert('❌ Erreur lors de la suppression');
-                }
-            } catch (error) {
-                tg.showAlert('❌ Erreur de connexion');
+            } else {
+                alert('✅ Match supprimé !');
+            }
+        } else {
+            if (typeof tg.showAlert === 'function') {
+                tg.showAlert('❌ Erreur lors de la suppression');
+            } else {
+                alert('❌ Erreur lors de la suppression');
             }
         }
-    });
+    } catch (error) {
+        console.error('Erreur:', error);
+        if (typeof tg.showAlert === 'function') {
+            tg.showAlert('❌ Erreur de connexion');
+        } else {
+            alert('❌ Erreur de connexion');
+        }
+    }
 }
 
 // Initialisation au chargement
 document.addEventListener('DOMContentLoaded', () => {
     loadMatches();
+
+    // Gérer la touche Entrée dans le champ mot de passe
+    const passwordInput = document.getElementById('admin-password-input');
+    if (passwordInput) {
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                verifyAdminPassword();
+            }
+        });
+    }
 });
