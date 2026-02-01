@@ -1,0 +1,7 @@
+# Configuration de l'application
+PORT=3000
+
+# IMPORTANT: Changez ce mot de passe !
+ADMIN_PASSWORD=VotreMotDePasseSecret123
+
+# Pour production Railway, ce mot de passe sera dans les variables d'environnement

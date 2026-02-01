@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronostics Foot VIP</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Particules décoratives -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showPage('matches')">🎯 Matchs</button>
+        <button class="nav-tab" onclick="showPage('info')">ℹ️ Info</button>
+        <button class="nav-tab" onclick="showPage('contact')">📧 Contact</button>
+        <button class="nav-tab admin-tab" onclick="showAdminPage()">⚙️ Admin</button>
+    </div>
+
+    <!-- Page Matchs -->
+    <div id="page-matches" class="page active">
+        <div class="container">
+            <header>
+                <h1>⚽ PRONOSTICS VIP</h1>
+                <p class="subtitle">💎 Sélection Premium du Jour</p>
+            </header>
+
+            <div id="matches-list"></div>
+
+            <div class="empty-state" id="empty-matches" style="display: none;">
+                <div class="empty-icon">🎯</div>
+                <p>Aucun match disponible</p>
+                <p class="empty-subtitle">De nouveaux pronostics arrivent bientôt</p>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Chargement des matchs...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Info -->
+    <div id="page-info" class="page">
+        <div class="container">
+            <div class="info-card">
+                <h2>ℹ️ À Propos</h2>
+                <p>Bienvenue sur notre <strong>service de pronostics football VIP premium</strong>.</p>
+                <p>Nous analysons et sélectionnons les meilleurs matchs avec les opportunités les plus prometteuses pour maximiser vos gains.</p>
+
+                <div class="info-section">
+                    <h3>🎯 Notre Méthode</h3>
+                    <ul>
+                        <li>Analyse statistique approfondie des équipes</li>
+                        <li>Étude détaillée des formes et confrontations</li>
+                        <li>Sélection rigoureuse basée sur les données</li>
+                        <li>Pronostics validés par nos experts</li>
+                        <li>Suivi en temps réel des performances</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h3>⚡ Pourquoi Nous Choisir ?</h3>
+                    <ul>
+                        <li>Expertise reconnue dans le domaine</li>
+                        <li>Transparence totale sur nos résultats</li>
+                        <li>Support client réactif et disponible</li>
+                        <li>Mises à jour quotidiennes garanties</li>
+                        <li>Communauté active et engagée</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h3>📊 Nos Statistiques</h3>
+                    <ul>
+                        <li>Taux de réussite élevé et vérifié</li>
+                        <li>Analyses sur +10 championnats</li>
+                        <li>Des milliers de membres satisfaits</li>
+                        <li>Historique complet accessible</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <p>⚠️ <strong>Avertissement Important:</strong> Les paris sportifs comportent des risques financiers. Pariez de manière responsable et uniquement avec des fonds que vous pouvez vous permettre de perdre. Ce service est réservé aux personnes majeures.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Contact -->
+    <div id="page-contact" class="page">
+        <div class="container">
+            <div class="contact-card">
+                <h2>📧 Nous Contacter</h2>
+                <p class="contact-intro">Une question ? Besoin d'assistance ? Notre équipe est à votre écoute !</p>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">💬</span>
+                        <div>
+                            <h3>Telegram Direct</h3>
+                            <p class="contact-value">@VotreUsername</p>
+                            <span class="contact-label">Réponse rapide garantie</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <span class="contact-icon">👥</span>
+                        <div>
+                            <h3>Groupe VIP</h3>
+                            <p class="contact-value">Accès Exclusif Membres</p>
+                            <span class="contact-label">Contactez-nous pour rejoindre</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <div>
+                            <h3>Support Client</h3>
+                            <p class="contact-value">Disponible 7j/7</p>
+                            <span class="contact-label">Temps de réponse moyen : 2h</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <span class="contact-icon">📨</span>
+                        <div>
+                            <h3>Email Professionnel</h3>
+                            <p class="contact-value">contact@votre-site.com</p>
+                            <span class="contact-label">Pour demandes officielles uniquement</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <span class="contact-icon">🌐</span>
+                        <div>
+                            <h3>Réseaux Sociaux</h3>
+                            <p class="contact-value">Instagram • Twitter • YouTube</p>
+                            <span class="contact-label">Suivez-nous pour les actualités</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-note">
+                    <p><strong>💡 Personnalisation:</strong> Modifiez ces informations dans le fichier <code>index.html</code> (section Contact) pour ajouter vos vrais contacts et réseaux sociaux.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Admin Login -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <h2>🔒 Accès Admin</h2>
+            <p>Authentification requise</p>
+            <input type="password" id="admin-password-input" placeholder="Mot de passe administrateur" class="admin-input">
+            <div class="modal-buttons">
+                <button onclick="verifyAdminPassword()" class="admin-btn">🔓 Connexion</button>
+                <button onclick="closeAdminModal()" class="cancel-btn">Annuler</button>
+            </div>
+            <div id="admin-error" class="error-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Page Admin -->
+    <div id="page-admin" class="page">
+        <div class="container">
+            <div class="admin-panel">
+                <div class="admin-header">
+                    <h2>⚙️ Panneau Admin</h2>
+                    <button onclick="logoutAdmin()" class="logout-btn">🚪 Déconnexion</button>
+                </div>
+                <p class="admin-subtitle">Gérez vos pronostics en temps réel</p>
+
+                <div class="admin-form">
+                    <h3>➕ Publier un Nouveau Match</h3>
+
+                    <input type="text" id="admin-league" placeholder="🏆 Ligue (ex: Ligue 1, Premier League)" class="admin-input">
+                    <input type="text" id="admin-home" placeholder="🏠 Équipe domicile" class="admin-input">
+                    <input type="text" id="admin-away" placeholder="✈️ Équipe extérieure" class="admin-input">
+                    <input type="time" id="admin-time" class="admin-input">
+                    <input type="text" id="admin-prediction" placeholder="⭐ Votre pronostic (ex: Victoire PSG, Match Nul)" class="admin-input">
+                    <input type="text" id="admin-odds" placeholder="💰 Cote (ex: 2.50)" class="admin-input">
+
+                    <button onclick="addMatch()" class="admin-btn">✅ Publier Le Match</button>
+                </div>
+
+                <div class="admin-list">
+                    <h3>📋 Matchs Publiés</h3>
+                    <div id="admin-matches-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Générer des particules décoratives
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
